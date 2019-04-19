@@ -1,0 +1,25 @@
+-- Crawl lại wiki_url null, brief = '' or brief like '%null%'
+Step: 1
+
+SELECT
+	uuid,
+	NAME,
+	artists.info ->> '$.wiki.brief',
+	artists.info ->> '$.wiki_url',
+	artists.info ->> '$.wiki.birthday'
+	
+
+FROM
+	artists
+WHERE
+	-- artists.info ->> '$.wiki.birthday' 
+	valid > 0
+and
+artists.info ->> '$.wiki_url' is not null
+
+and 
+(artists.info ->> '$.wiki.brief' = ''
+or
+artists.info ->> '$.wiki.brief' like '%null%')
+
+-- Step 2:
